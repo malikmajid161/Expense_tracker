@@ -83,4 +83,4 @@ Contributions are welcome! If you'd like to improve the app, please feel free to
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
-Made with ❤️ by [Malik Majid](https://github.com/malikmajid161)
+Made with ❤️ by [MAJID ALI && Khuzaima Ishtiaq](https://github.com/malikmajid161)
