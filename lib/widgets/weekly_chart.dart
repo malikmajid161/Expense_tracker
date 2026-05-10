@@ -57,14 +57,16 @@ class WeeklyChart extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
             ),
             const SizedBox(height: 20),
-            AspectRatio(
+      AspectRatio(
               aspectRatio: 1.7,
               child: BarChart(
                 BarChartData(
                   gridData: const FlGridData(show: false),
                   borderData: FlBorderData(show: false),
                   maxY: maxY,
+                  minY: 0,
                   barGroups: barGroups,
+                  alignment: BarChartAlignment.spaceAround,
                   titlesData: FlTitlesData(
                     leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
                     rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
@@ -72,11 +74,18 @@ class WeeklyChart extends StatelessWidget {
                     bottomTitles: AxisTitles(
                       sideTitles: SideTitles(
                         showTitles: true,
+                        reservedSize: 30,
+                        interval: 1,
                         getTitlesWidget: (value, meta) {
+                          final index = value.toInt();
+                          if (index < 0 || index > 6) return const SizedBox.shrink();
+                          
                           final day = DateTime(now.year, now.month, now.day)
-                              .subtract(Duration(days: 6 - value.toInt()));
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 8),
+                              .subtract(Duration(days: 6 - index));
+                          
+                          return SideTitleWidget(
+                            axisSide: meta.axisSide,
+                            space: 8,
                             child: Text(
                               DateFormat('E').format(day)[0],
                               style: const TextStyle(
@@ -93,14 +102,29 @@ class WeeklyChart extends StatelessWidget {
                   barTouchData: BarTouchData(
                     enabled: true,
                     touchTooltipData: BarTouchTooltipData(
+                      tooltipRoundedRadius: 8,
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
                         final x = group.x.toInt();
                         final day = DateTime(now.year, now.month, now.day)
                             .subtract(Duration(days: 6 - x));
-                        final label = DateFormat('EEE').format(day);
+                        final label = DateFormat('EEEE').format(day);
                         return BarTooltipItem(
-                          '$label\n${rod.toY.toStringAsFixed(0)} Rs',
-                          const TextStyle(color: Colors.white),
+                          '$label\n',
+                          const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: '${rod.toY.toStringAsFixed(0)} Rs',
+                              style: const TextStyle(
+                                color: Colors.yellow,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 12,
+                              ),
+                            ),
+                          ],
                         );
                       },
                     ),
@@ -114,11 +138,3 @@ class WeeklyChart extends StatelessWidget {
     );
   }
 }
-
-echo "# Expense_tracker" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
-git remote add origin https://github.com/malikmajid161/Expense_tracker.git
-git push -u origin main
