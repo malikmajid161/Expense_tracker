@@ -2,7 +2,7 @@
 
 A premium, feature-rich personal finance management application built with **Flutter**. Track your spending, manage your budget, and visualize your financial habits with elegant charts and a modern UI.
 
-![App Dashboard Mockup](file:///C:/Users/Majid/.gemini/antigravity/brain/06544bdf-7436-48cc-800a-6864f159ef34/expense_tracker_dashboard_mockup_1778398148517.png)
+![App Dashboard Mockup](./assets/images/dashboard_mockup.png)
 
 ## 🌟 Key Features
 
